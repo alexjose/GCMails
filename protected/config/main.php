@@ -16,9 +16,11 @@ return array(
         'application.components.*',
     ),
     'modules' => array(
+        'admin',
+        'account',
         'gii' => array(
             'class' => 'system.gii.GiiModule',
-            'password' => 'Enter Your Password Here',
+            'password' => 'admin',
             // If removed, Gii defaults to localhost only. Edit carefully to taste.
             'ipFilters' => array('127.0.0.1', '::1'),
         ),
@@ -38,7 +40,7 @@ return array(
             ),
         ),
         'db' => array(
-            'connectionString' => 'mysql:host=localhost;dbname=testdrive',
+            'connectionString' => 'mysql:host=localhost;dbname=GCMails',
             'emulatePrepare' => true,
             'enableProfiling' => true,
             'username' => 'root',
