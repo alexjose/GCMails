@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `GCMails`.`Profile` (
   `userID` INT UNSIGNED NOT NULL,
   `firstName` VARCHAR(45) NOT NULL,
   `lastName` VARCHAR(45) NOT NULL,
-  `timeZone` VARCHAR(45) NULL,
+  `timeZoneID` INT NULL,
   `countryID` INT NULL,
   PRIMARY KEY (`userID`))
 ENGINE = InnoDB;
@@ -41,7 +41,19 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `GCMails`.`Country` (
   `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(128) NOT NULL,
-  `status` INT NULL DEFAULT 1,
+  `timeZoneID` INT NULL,
+  `status` INT NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `GCMails`.`TimeZone`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `GCMails`.`TimeZone` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(128) NOT NULL,
+  `status` INT NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 

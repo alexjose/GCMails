@@ -58,3 +58,32 @@ COLLATE = utf8_general_ci;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+--------------------------------------------------------------------------------
+-------- Changes From Commit 76624cfebd0e8e502d54e3df9b5d18bb2a62bd6a ----------
+--------------------------------------------------------------------------------
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
+
+ALTER TABLE `GCMails`.`Profile` 
+CHANGE COLUMN `timeZone` `timeZoneID` INT(11) NULL DEFAULT NULL ;
+
+ALTER TABLE `GCMails`.`Country` 
+CHANGE COLUMN `status` `status` INT(11) NOT NULL DEFAULT 1 ,
+ADD COLUMN `timeZoneID` INT(11) NULL DEFAULT NULL AFTER `name`;
+
+CREATE TABLE IF NOT EXISTS `GCMails`.`TimeZone` (
+  `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(128) NOT NULL,
+  `status` INT(11) NOT NULL DEFAULT 1,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
