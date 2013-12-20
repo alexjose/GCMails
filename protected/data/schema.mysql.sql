@@ -16,7 +16,6 @@ CREATE TABLE IF NOT EXISTS `GCMails`.`User` (
   `token` VARCHAR(45) NULL,
   `status` INT NULL DEFAULT 1,
   `createdAt` DATETIME NOT NULL,
-  `Usercol` VARCHAR(45) NULL,
   PRIMARY KEY (`id`),
   UNIQUE INDEX `email_UNIQUE` (`email` ASC))
 ENGINE = InnoDB;

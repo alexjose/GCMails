@@ -1,6 +1,6 @@
 <?php
 
-class TimeZoneController extends Controller {
+class UserController extends Controller {
 
     /**
      * @var string the default layout for the views. Defaults to '//layouts/column2', meaning
@@ -58,13 +58,13 @@ class TimeZoneController extends Controller {
      * If creation is successful, the browser will be redirected to the 'view' page.
      */
     public function actionCreate() {
-        $model = new TimeZone;
+        $model = new User;
 
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['TimeZone'])) {
-            $model->attributes = $_POST['TimeZone'];
+        if (isset($_POST['User'])) {
+            $model->attributes = $_POST['User'];
             if ($model->save())
                 $this->redirect(array('view', 'id' => $model->id));
         }
@@ -85,8 +85,8 @@ class TimeZoneController extends Controller {
         // Uncomment the following line if AJAX validation is needed
         // $this->performAjaxValidation($model);
 
-        if (isset($_POST['TimeZone'])) {
-            $model->attributes = $_POST['TimeZone'];
+        if (isset($_POST['User'])) {
+            $model->attributes = $_POST['User'];
             if ($model->save())
                 $this->redirect(array('view', 'id' => $model->id));
         }
@@ -113,10 +113,10 @@ class TimeZoneController extends Controller {
      * Manages all models.
      */
     public function actionIndex() {
-        $model = new TimeZone('search');
+        $model = new User('search');
         $model->unsetAttributes();  // clear any default values
-        if (isset($_GET['TimeZone']))
-            $model->attributes = $_GET['TimeZone'];
+        if (isset($_GET['User']))
+            $model->attributes = $_GET['User'];
 
         $this->render('index', array(
             'model' => $model,
@@ -127,11 +127,11 @@ class TimeZoneController extends Controller {
      * Returns the data model based on the primary key given in the GET variable.
      * If the data model is not found, an HTTP exception will be raised.
      * @param integer $id the ID of the model to be loaded
-     * @return TimeZone the loaded model
+     * @return User the loaded model
      * @throws CHttpException
      */
     public function loadModel($id) {
-        $model = TimeZone::model()->findByPk($id);
+        $model = User::model()->findByPk($id);
         if ($model === null)
             throw new CHttpException(404, 'The requested page does not exist.');
         return $model;
@@ -139,10 +139,10 @@ class TimeZoneController extends Controller {
 
     /**
      * Performs the AJAX validation.
-     * @param TimeZone $model the model to be validated
+     * @param User $model the model to be validated
      */
     protected function performAjaxValidation($model) {
-        if (isset($_POST['ajax']) && $_POST['ajax'] === 'time-zone-form') {
+        if (isset($_POST['ajax']) && $_POST['ajax'] === 'user-form') {
             echo CActiveForm::validate($model);
             Yii::app()->end();
         }
