@@ -1,20 +1,32 @@
 <?php
 /* @var $this CountryController */
-/* @var $dataProvider CActiveDataProvider */
+/* @var $model Country */
 
-$this->breadcrumbs=array(
-	'Countries',
+$this->breadcrumbs = array(
+    'Countries' => array('index'),
+    'Manage',
 );
 
-$this->menu=array(
-	array('label'=>'Create Country', 'url'=>array('create')),
-	array('label'=>'Manage Country', 'url'=>array('admin')),
+$this->menu = array(
+    array('label' => 'List Country', 'url' => array('index')),
+    array('label' => 'Create Country', 'url' => array('create')),
 );
 ?>
 
-<h1>Countries</h1>
+<h1>Manage Countries</h1>
 
-<?php $this->widget('zii.widgets.CListView', array(
-	'dataProvider'=>$dataProvider,
-	'itemView'=>'_view',
-)); ?>
+<?php
+$this->widget('zii.widgets.grid.CGridView', array(
+    'id' => 'country-grid',
+    'dataProvider' => $model->search(),
+    'filter' => $model,
+    'columns' => array(
+        'id',
+        'name',
+        'status',
+        array(
+            'class' => 'CButtonColumn',
+        ),
+    ),
+));
+?>

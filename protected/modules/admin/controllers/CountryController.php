@@ -109,26 +109,17 @@ class CountryController extends Controller {
             $this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
     }
 
-    /**
-     * Lists all models.
-     */
-    public function actionIndex() {
-        $dataProvider = new CActiveDataProvider('Country');
-        $this->render('index', array(
-            'dataProvider' => $dataProvider,
-        ));
-    }
 
     /**
      * Manages all models.
      */
-    public function actionAdmin() {
+    public function actionIndex() {
         $model = new Country('search');
         $model->unsetAttributes();  // clear any default values
         if (isset($_GET['Country']))
             $model->attributes = $_GET['Country'];
 
-        $this->render('admin', array(
+        $this->render('index', array(
             'model' => $model,
         ));
     }
