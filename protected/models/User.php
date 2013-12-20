@@ -14,6 +14,11 @@
  */
 class User extends CActiveRecord {
 
+    public static $statuses = array(
+        0 => 'Inactive',
+        1 => 'Active'
+    );
+
     /**
      * @return string the associated database table name
      */
@@ -28,11 +33,14 @@ class User extends CActiveRecord {
         // NOTE: you should only define rules for those attributes that
         // will receive user inputs.
         return array(
-            array('email, password, salt, createdAt', 'required'),
+            array('email, password', 'required'),
             array('status', 'numerical', 'integerOnly' => true),
             array('email', 'length', 'max' => 128),
+            array('email', 'email'),
+            array('email', 'unique'),
             array('password', 'length', 'max' => 256),
             array('salt, token', 'length', 'max' => 45),
+            array('createdAt', 'date', 'format' => 'yyyy-M-d H:m:s'),
             // The following rule is used by search().
             // @todo Please remove those attributes that should not be searched.
             array('id, email, password, salt, token, status, createdAt', 'safe', 'on' => 'search'),
@@ -103,6 +111,26 @@ class User extends CActiveRecord {
      */
     public static function model($className = __CLASS__) {
         return parent::model($className);
+    }
+
+    public function getStatusText() {
+        return isset($this->status) ? self::$statuses[$this->status] : null;
+    }
+
+    protected function beforeSave() {
+        if ($this->isNewRecord) {
+            $this->salt = mt_rand(1000000000, 9999999999999);
+            $this->token = mt_rand(1000000000, 9999999999999);
+            $this->createdAt = new CDbExpression("NOW()");
+        }
+        return parent::beforeSave();
+    }
+
+    protected function afterSave() {
+        if ($this->isNewRecord) {
+            $this->profile->userID = $this->id;
+        }
+        return parent::afterSave();
     }
 
 }

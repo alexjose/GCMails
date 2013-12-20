@@ -12,6 +12,11 @@
  */
 class Country extends CActiveRecord {
 
+    public static $statuses = array(
+        0 => 'Inactive',
+        1 => 'Active'
+    );
+
     /**
      * @return string the associated database table name
      */
@@ -57,6 +62,7 @@ class Country extends CActiveRecord {
             'id' => 'ID',
             'name' => 'Name',
             'status' => 'Status',
+            'timeZoneID' => 'Time Zone'
         );
     }
 
@@ -79,6 +85,7 @@ class Country extends CActiveRecord {
 
         $criteria->compare('id', $this->id, true);
         $criteria->compare('name', $this->name, true);
+        $criteria->compare('timeZoneID', $this->timeZoneID);
         $criteria->compare('status', $this->status);
 
         return new CActiveDataProvider($this, array(
@@ -94,6 +101,18 @@ class Country extends CActiveRecord {
      */
     public static function model($className = __CLASS__) {
         return parent::model($className);
+    }
+
+    public function scopes() {
+        return array(
+            'active' => array(
+                'condition' => 'status = 1'
+            ),
+        );
+    }
+
+    public function getStatusText() {
+        return isset($this->status) ? self::$statuses[$this->status] : null;
     }
 
 }

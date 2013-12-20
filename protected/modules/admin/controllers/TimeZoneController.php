@@ -48,8 +48,25 @@ class TimeZoneController extends Controller {
      * @param integer $id the ID of the model to be displayed
      */
     public function actionView($id) {
+
+        //Countries with given Time Zone
+        $country = new Country('search');
+        $country->unsetAttributes();  // clear any default values
+        $country->timeZoneID = $id;
+        if (isset($_GET['Country']))
+            $country->attributes = $_GET['Country'];
+        
+        //Users with given Time Zone
+        $profile = new Profile('search');
+        $profile->unsetAttributes();
+        $profile->timeZoneID = $id;
+        if (isset($_GET['Profile']))
+            $profile->attributes = $_GET['Profile'];
+
         $this->render('view', array(
             'model' => $this->loadModel($id),
+            'country' => $country,
+            'profile' => $profile,
         ));
     }
 

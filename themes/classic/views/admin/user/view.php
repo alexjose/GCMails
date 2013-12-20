@@ -27,7 +27,7 @@ $this->widget('zii.widgets.CDetailView', array(
         'password',
         'salt',
         'token',
-        'status',
+        'statusText',
         'createdAt',
     ),
 ));

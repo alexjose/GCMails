@@ -10,6 +10,11 @@
  */
 class TimeZone extends CActiveRecord {
 
+    public static $statuses = array(
+        0 => 'Inactive',
+        1 => 'Active'
+    );
+
     /**
      * @return string the associated database table name
      */
@@ -44,6 +49,7 @@ class TimeZone extends CActiveRecord {
             'profiles' => array(self::HAS_MANY, 'Profile', 'timeZoneID'),
             'users' => array(self::HAS_MANY, 'User', array('userID' => 'id'), 'through' => 'profiles'),
             'userCount' => array(self::STAT, 'Profile', 'timeZoneID'),
+            'countryCount' => array(self::STAT, 'Country', 'timeZoneID'),
         );
     }
 
@@ -75,6 +81,9 @@ class TimeZone extends CActiveRecord {
 
         $criteria = new CDbCriteria;
 
+        $criteria->with = array('userCount', 'countryCount');
+        $criteria->together = true;
+
         $criteria->compare('id', $this->id, true);
         $criteria->compare('name', $this->name, true);
         $criteria->compare('status', $this->status);
@@ -92,6 +101,18 @@ class TimeZone extends CActiveRecord {
      */
     public static function model($className = __CLASS__) {
         return parent::model($className);
+    }
+
+    public function scopes() {
+        return array(
+            'active' => array(
+                'condition' => 'status = 1'
+            ),
+        );
+    }
+
+    public function getStatusText() {
+        return isset($this->status) ? self::$statuses[$this->status] : null;
     }
 
 }
