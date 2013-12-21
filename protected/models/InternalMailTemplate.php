@@ -103,4 +103,11 @@ class InternalMailTemplate extends CActiveRecord {
         return isset($this->status) ? self::$statuses[$this->status] : null;
     }
 
+    public function findByName($name) {
+        if (!empty($name)) {
+            return self::model()->findByAttributes(array('name' => $name));
+        }
+        return false;
+    }
+
 }

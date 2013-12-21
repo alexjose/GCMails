@@ -138,4 +138,20 @@ class User extends CActiveRecord {
         return sha1($salt . strlen($password) . $password);
     }
 
+    public function register() {
+        if ($this->save()) {
+            $mail = new InternalMailQueue();
+            $mail->setTemplate('Test Template');
+            $mail->variables = array(
+                'fullName' => $this->profile->fullName,
+                'company' => "Test"
+            );
+            $mail->userID = $this->id;
+            $mail->emailID = $this->email;
+            $mail->subject = "User Registered, Verify Your Account.";
+            return $mail->generateMail();
+        }
+        return false;
+    }
+
 }
