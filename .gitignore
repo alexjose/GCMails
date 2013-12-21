@@ -1,3 +1,3 @@
 assets/
 protected/runtime/
-
+protected/config/console.php
