@@ -57,6 +57,35 @@ CREATE TABLE IF NOT EXISTS `GCMails`.`TimeZone` (
 ENGINE = InnoDB;
 
 
+-- -----------------------------------------------------
+-- Table `GCMails`.`InternalMailTemplate`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `GCMails`.`InternalMailTemplate` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `template` TEXT NULL,
+  `status` INT NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `GCMails`.`InternalMailQueue`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `GCMails`.`InternalMailQueue` (
+  `id` INT UNSIGNED NOT NULL AUTO_INCREMENT,
+  `userID` INT NOT NULL,
+  `templateID` INT NOT NULL,
+  `emailID` VARCHAR(128) NOT NULL,
+  `subject` VARCHAR(256) NOT NULL,
+  `body` TEXT NOT NULL,
+  `status` INT NOT NULL DEFAULT 0,
+  `createdAt` DATETIME NOT NULL,
+  `lastAttempt` DATETIME NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

@@ -122,6 +122,7 @@ class User extends CActiveRecord {
             $this->salt = mt_rand(1000000000, 9999999999999);
             $this->token = mt_rand(1000000000, 9999999999999);
             $this->createdAt = new CDbExpression("NOW()");
+            $this->password = self::hashPassword($this->password, $this->salt);
         }
         return parent::beforeSave();
     }
@@ -131,6 +132,10 @@ class User extends CActiveRecord {
             $this->profile->userID = $this->id;
         }
         return parent::afterSave();
+    }
+
+    public static function hashPassword($password, $salt) {
+        return sha1($salt . strlen($password) . $password);
     }
 
 }

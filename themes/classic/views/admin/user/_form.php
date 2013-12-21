@@ -1,6 +1,6 @@
 <?php
 /* @var $this UserController */
-/* @var $model User */
+/* @var $user User */
 /* @var $form CActiveForm */
 ?>
 
@@ -17,48 +17,54 @@
     ));
     ?>
 
-    <p class="note">Fields with <span class="required">*</span> are required.</p>
-
-    <?php echo $form->errorSummary($model); ?>
+    <?php echo $form->errorSummary(array($user, $user->profile)); ?>
 
     <div class="row">
-        <?php echo $form->labelEx($model, 'email'); ?>
-        <?php echo $form->textField($model, 'email', array('size' => 60, 'maxlength' => 128)); ?>
-        <?php echo $form->error($model, 'email'); ?>
+        <?php echo $form->labelEx($user, 'email'); ?>
+        <?php echo $form->textField($user, 'email', array('size' => 60, 'maxlength' => 128)); ?>
+        <?php echo $form->error($user, 'email'); ?>
     </div>
 
     <div class="row">
-        <?php echo $form->labelEx($model, 'password'); ?>
-        <?php echo $form->passwordField($model, 'password', array('size' => 60, 'maxlength' => 256)); ?>
-        <?php echo $form->error($model, 'password'); ?>
+        <?php echo $form->labelEx($user, 'password'); ?>
+        <?php echo $form->passwordField($user, 'password', array('size' => 60, 'maxlength' => 256)); ?>
+        <?php echo $form->error($user, 'password'); ?>
     </div>
 
     <div class="row">
-        <?php echo $form->labelEx($model, 'salt'); ?>
-        <?php echo $form->textField($model, 'salt', array('size' => 45, 'maxlength' => 45)); ?>
-        <?php echo $form->error($model, 'salt'); ?>
+        <?php echo $form->labelEx($user->profile, 'firstName'); ?>
+        <?php echo $form->textField($user->profile, 'firstName', array('size' => 45, 'maxlength' => 45)); ?>
+        <?php echo $form->error($user->profile, 'firstName'); ?>
     </div>
 
     <div class="row">
-        <?php echo $form->labelEx($model, 'token'); ?>
-        <?php echo $form->textField($model, 'token', array('size' => 45, 'maxlength' => 45)); ?>
-        <?php echo $form->error($model, 'token'); ?>
+        <?php echo $form->labelEx($user->profile, 'lastName'); ?>
+        <?php echo $form->textField($user->profile, 'lastName', array('size' => 45, 'maxlength' => 45)); ?>
+        <?php echo $form->error($user->profile, 'lastName'); ?>
     </div>
 
     <div class="row">
-        <?php echo $form->labelEx($model, 'status'); ?>
-        <?php echo $form->textField($model, 'status'); ?>
-        <?php echo $form->error($model, 'status'); ?>
+        <?php echo $form->labelEx($user->profile, 'countryID'); ?>
+        <?php echo $form->dropDownList($user->profile, 'countryID', CHtml::listData(Country::model()->active()->findAll(), 'id', 'name')); ?>
+        <?php echo $form->error($user->profile, 'countryID'); ?>
     </div>
 
     <div class="row">
-        <?php echo $form->labelEx($model, 'createdAt'); ?>
-        <?php echo $form->textField($model, 'createdAt'); ?>
-        <?php echo $form->error($model, 'createdAt'); ?>
+        <?php echo $form->labelEx($user->profile, 'timeZoneID'); ?>
+        <?php echo $form->dropDownList($user->profile, 'timeZoneID', CHtml::listData(TimeZone::model()->active()->findAll(), 'id', 'name')); ?>
+        <?php echo $form->error($user->profile, 'timeZoneID'); ?>
     </div>
+
+
+    <div class="row">
+        <?php echo $form->labelEx($user, 'status'); ?>
+        <?php echo $form->textField($user, 'status'); ?>
+        <?php echo $form->error($user, 'status'); ?>
+    </div>
+
 
     <div class="row buttons">
-        <?php echo CHtml::submitButton($model->isNewRecord ? 'Create' : 'Save'); ?>
+        <?php echo CHtml::submitButton($user->isNewRecord ? 'Create' : 'Save'); ?>
     </div>
 
     <?php $this->endWidget(); ?>

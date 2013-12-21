@@ -103,3 +103,45 @@ DROP COLUMN `Usercol`;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+--------------------------------------------------------------------------------
+-------- Changes From Commit 155ca64ad73bec38f696f9ad0fd346a97662508f ----------
+--------------------------------------------------------------------------------
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='TRADITIONAL';
+
+ALTER TABLE `GCMails`.`Country` 
+DROP COLUMN `timeZoneID`,
+ADD COLUMN `timeZoneID` INT(11) NULL DEFAULT NULL AFTER `name`;
+
+CREATE TABLE IF NOT EXISTS `GCMails`.`InternalMailTemplate` (
+  `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `template` TEXT NULL DEFAULT NULL,
+  `status` INT(11) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+CREATE TABLE IF NOT EXISTS `GCMails`.`InternalMailQueue` (
+  `id` INT(10) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `userID` INT(11) NOT NULL,
+  `templateID` INT(11) NOT NULL,
+  `emailID` VARCHAR(128) NOT NULL,
+  `subject` VARCHAR(256) NOT NULL,
+  `body` TEXT NOT NULL,
+  `status` INT(11) NOT NULL DEFAULT 0,
+  `createdAt` DATETIME NOT NULL,
+  `lastAttempt` DATETIME NULL DEFAULT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB
+DEFAULT CHARACTER SET = utf8
+COLLATE = utf8_general_ci;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;

@@ -48,8 +48,17 @@ class CountryController extends Controller {
      * @param integer $id the ID of the model to be displayed
      */
     public function actionView($id) {
+        
+        //Users with given Time Zone
+        $profile = new Profile('search');
+        $profile->unsetAttributes();
+        $profile->countryID = $id;
+        if (isset($_GET['Profile']))
+            $profile->attributes = $_GET['Profile'];
+        
         $this->render('view', array(
             'model' => $this->loadModel($id),
+            'profile' => $profile,
         ));
     }
 

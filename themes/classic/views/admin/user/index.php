@@ -21,13 +21,24 @@ $this->widget('zii.widgets.grid.CGridView', array(
     'dataProvider' => $model->search(),
     'filter' => $model,
     'columns' => array(
-        'id',
-        'email',
-        'password',
-        'salt',
-        'token',
-        'status',
-        'createdAt',
+        'fullName',
+        'user.email',
+        array(
+            'name' => 'countryID',
+            'value' => '$data->country->name',
+            'filter' => CHtml::ListData(Country::model()->active()->findAll(), 'id', 'name'),
+        ),
+        array(
+            'name' => 'timeZoneID',
+            'value' => '$data->timeZone->name',
+            'filter' => CHtml::ListData(TimeZone::model()->active()->findAll(), 'id', 'name'),
+        ),
+        array(
+            'name' => 'user.status',
+            'value' => '$data->user->statusText',
+            'filter' => User::$statuses
+        ),
+        'user.createdAt',
         array(
             'class' => 'CButtonColumn',
         ),

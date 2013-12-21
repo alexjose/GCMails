@@ -45,7 +45,7 @@ class Profile extends CActiveRecord {
         return array(
             'user' => array(self::HAS_ONE, 'User', 'id'),
             'timeZone' => array(self::BELONGS_TO, 'TimeZone', 'timeZoneID'),
-            'coutnry' => array(self::BELONGS_TO, 'Country', 'countryID'),
+            'country' => array(self::BELONGS_TO, 'Country', 'countryID'),
         );
     }
 
@@ -103,5 +103,4 @@ class Profile extends CActiveRecord {
     public function getFullName() {
         return $this->firstName . " " . $this->lastName;
     }
-
 }
