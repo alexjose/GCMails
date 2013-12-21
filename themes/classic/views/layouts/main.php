@@ -34,6 +34,7 @@
                         array('label' => 'Users', 'url' => array('/admin/user')),
                         array('label' => 'Countries', 'url' => array('/admin/country')),
                         array('label' => 'Time Zones', 'url' => array('/admin/timezone')),
+                        array('label' => 'Mail Templates', 'url' => array('/admin/internalMailTemplate')),
 //                        array('label' => 'About', 'url' => array('/site/page', 'view' => 'about')),
                         array('label' => 'Contact', 'url' => array('/site/contact')),
                         array('label' => 'Login', 'url' => array('/site/login'), 'visible' => Yii::app()->user->isGuest),
